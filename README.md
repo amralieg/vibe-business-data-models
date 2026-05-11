@@ -143,91 +143,88 @@ All 40 MVMs ship with **zero structural findings** — they're clean across ever
 
 ## Industry index — full catalog
 
-Each industry's row is split into per-flavour columns so the ECM-vs-MVM trade-off is visible at a glance. Click an industry name to jump to its folder.
+Click an industry name to jump to its folder.
 
 ### Financial Services & Insurance
 
-| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| [Banking](./banking/) | 19 | 17 | 70 | 47 | 501 | 227 | 19,792 | 9,883 | 3,301 | 2,478 | 90 | 80 |
-| [Payments & Fintech](./payments_fintech/) | 18 | 15 | 68 | 41 | 546 | 223 | 16,916 | 7,890 | 2,188 | 1,624 | 95 | 71 |
-| [Health Insurance](./health_insurance/) | 19 | 15 | 73 | 45 | 409 | 189 | 13,134 | 6,803 | 1,507 | 1,371 | 222 | 128 |
-| [Life Insurance](./life_insurance/) | 19 | 15 | 64 | 45 | 468 | 217 | 18,387 | 9,579 | 2,825 | 1,926 | 181 | 158 |
+| Industry | ECM Domains | ECM Products | MVM Domains | MVM Products |
+|---|---:|---:|---:|---:|
+| [Banking](./banking/) | 19 | 501 | 17 | 227 |
+| [Payments & Fintech](./payments_fintech/) | 18 | 546 | 15 | 223 |
+| [Health Insurance](./health_insurance/) | 19 | 409 | 15 | 189 |
+| [Life Insurance](./life_insurance/) | 19 | 468 | 15 | 217 |
 
 ### Healthcare & Life Sciences
 
-| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| [Healthcare](./healthcare/) | 22 | 16 | 78 | 44 | 541 | 189 | 22,423 | 8,502 | 4,093 | 1,940 | 104 | 140 |
-| [Pharmaceuticals](./pharmaceuticals/) | 19 | 15 | 74 | 47 | 441 | 213 | 16,563 | 8,874 | 2,987 | 2,423 | 190 | 147 |
-| [Genomics & Biotech](./genomics_biotech/) | 19 | 15 | 66 | 40 | 403 | 182 | 15,490 | 7,884 | 2,714 | 1,906 | 114 | 124 |
-| [Clinical Trials](./clinical_trials/) | 19 | 13 | 67 | 37 | 379 | 193 | 15,530 | 8,719 | 3,128 | 1,991 | 169 | 126 |
+| Industry | ECM Domains | ECM Products | MVM Domains | MVM Products |
+|---|---:|---:|---:|---:|
+| [Healthcare](./healthcare/) | 22 | 541 | 16 | 189 |
+| [Pharmaceuticals](./pharmaceuticals/) | 19 | 441 | 15 | 213 |
+| [Genomics & Biotech](./genomics_biotech/) | 19 | 403 | 15 | 182 |
+| [Clinical Trials](./clinical_trials/) | 19 | 379 | 13 | 193 |
 
 ### Travel & Logistics
 
-| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| [Airlines](./airlines/) | 19 | 15 | 66 | 44 | 424 | 205 | 14,742 | 7,613 | 2,101 | 1,380 | 231 | 140 |
-| [Travel & Hospitality](./travel_hospitality/) | 17 | 14 | 54 | 45 | 356 | 188 | 13,377 | 7,755 | 2,107 | 1,571 | 203 | 120 |
-| [Transport & Shipping](./transport_shipping/) | 19 | 14 | 82 | 45 | 514 | 210 | 20,747 | 9,524 | 3,292 | 1,918 | 195 | 122 |
-| [Shipping Ports](./shipping_ports/) | 19 | 14 | 71 | 42 | 395 | 186 | 16,237 | 8,590 | 2,704 | 2,086 | 211 | 139 |
+| Industry | ECM Domains | ECM Products | MVM Domains | MVM Products |
+|---|---:|---:|---:|---:|
+| [Airlines](./airlines/) | 19 | 424 | 15 | 205 |
+| [Travel & Hospitality](./travel_hospitality/) | 17 | 356 | 14 | 188 |
+| [Transport & Shipping](./transport_shipping/) | 19 | 514 | 14 | 210 |
+| [Shipping Ports](./shipping_ports/) | 19 | 395 | 14 | 186 |
 
 ### Energy & Resources
 
-| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| [Oil & Gas](./oil_gas/) | 19 | 17 | 72 | 45 | 568 | 246 | 22,088 | 11,143 | 3,533 | 2,664 | 107 | 93 |
-| [Energy & Utilities](./energy_utilities/) | 18 | 15 | 60 | 45 | 451 | 236 | 17,774 | 10,384 | 2,767 | 2,107 | 99 | 84 |
-| [Mining](./mining/) | 18 | 15 | 62 | 46 | 416 | 219 | 15,002 | 8,813 | 2,458 | 2,083 | 179 | 141 |
-| [Water Utilities](./water_utilities/) | 15 | 13 | 52 | 38 | 377 | 189 | 12,758 | 7,107 | 2,170 | 1,539 | 86 | 112 |
+| Industry | ECM Domains | ECM Products | MVM Domains | MVM Products |
+|---|---:|---:|---:|---:|
+| [Oil & Gas](./oil_gas/) | 19 | 568 | 17 | 246 |
+| [Energy & Utilities](./energy_utilities/) | 18 | 451 | 15 | 236 |
+| [Mining](./mining/) | 18 | 416 | 15 | 219 |
+| [Water Utilities](./water_utilities/) | 15 | 377 | 13 | 189 |
 
 ### Public Sector & Services
 
-| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| [Education](./education/) | 17 | 14 | 57 | 39 | 446 | 203 | 17,010 | 8,251 | 2,337 | 1,507 | 237 | 143 |
-| [NGO](./ngo/) | 15 | 12 | 47 | 31 | 302 | 141 | 11,608 | 6,093 | 1,821 | 1,413 | 135 | 114 |
-| [Legal](./legal/) | 15 | 12 | 45 | 31 | 314 | 153 | 12,216 | 6,405 | 2,214 | 1,377 | 162 | 122 |
-| [Waste Management](./waste_management/) | 17 | 12 | 55 | 38 | 471 | 194 | 17,718 | 7,918 | 2,772 | 1,606 | 187 | 114 |
-| [Staffing & HR](./staffing_hr/) | 16 | 12 | 48 | 31 | 302 | 153 | 11,925 | 6,932 | 2,097 | 1,568 | 138 | 116 |
-| [Real Estate](./real_estate/) | 16 | 14 | 50 | 41 | 344 | 177 | 14,564 | 8,681 | 2,970 | 2,410 | 143 | 129 |
+| Industry | ECM Domains | ECM Products | MVM Domains | MVM Products |
+|---|---:|---:|---:|---:|
+| [Education](./education/) | 17 | 446 | 14 | 203 |
+| [NGO](./ngo/) | 15 | 302 | 12 | 141 |
+| [Legal](./legal/) | 15 | 314 | 12 | 153 |
+| [Waste Management](./waste_management/) | 17 | 471 | 12 | 194 |
+| [Staffing & HR](./staffing_hr/) | 16 | 302 | 12 | 153 |
+| [Real Estate](./real_estate/) | 16 | 344 | 14 | 177 |
 
 ### Communications, Media & Entertainment
 
-| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| [Telecommunication](./telecommunication/) | 20 | 15 | 73 | 43 | 451 | 167 | 17,655 | 7,601 | 2,935 | 1,806 | 104 | 132 |
-| [Media & Broadcasting](./media_broadcasting/) | 17 | 14 | 47 | 40 | 421 | 186 | 14,926 | 7,529 | 2,444 | 1,842 | 92 | 121 |
-| [Sports & Entertainment](./sports_entertainment/) | 19 | 14 | 75 | 43 | 473 | 200 | 21,075 | 9,102 | 4,474 | 2,034 | 180 | 130 |
-| [Gaming](./gaming/) | 17 | 14 | 58 | 42 | 396 | 176 | 15,481 | 7,543 | 2,716 | 1,824 | 218 | 120 |
-| [Advertising](./advertising/) | 13 | 10 | 41 | 21 | 262 | 95 | 9,284 | 3,760 | 1,544 | 815 | 145 | 77 |
+| Industry | ECM Domains | ECM Products | MVM Domains | MVM Products |
+|---|---:|---:|---:|---:|
+| [Telecommunication](./telecommunication/) | 20 | 451 | 15 | 167 |
+| [Media & Broadcasting](./media_broadcasting/) | 17 | 421 | 14 | 186 |
+| [Sports & Entertainment](./sports_entertainment/) | 19 | 473 | 14 | 200 |
+| [Gaming](./gaming/) | 17 | 396 | 14 | 176 |
+| [Advertising](./advertising/) | 13 | 262 | 10 | 95 |
 
 ### Retail & Consumer
 
-| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| [Retail](./retail/) | 19 | 15 | 74 | 37 | 401 | 154 | 14,787 | 6,377 | 2,491 | 1,497 | 220 | 120 |
-| [Grocery](./grocery/) | 19 | 14 | 62 | 39 | 374 | 175 | 12,754 | 6,708 | 1,611 | 1,288 | 101 | 121 |
-| [Ecommerce](./ecommerce/) | 18 | 14 | 55 | 37 | 369 | 148 | 11,678 | 5,435 | 1,428 | 1,050 | 89 | 112 |
-| [Consumer Goods](./consumer_goods/) | 19 | 14 | 66 | 41 | 403 | 184 | 14,916 | 7,697 | 1,843 | 1,461 | 100 | 125 |
-| [Apparel & Fashion](./apparel_fashion/) | 19 | 12 | 64 | 33 | 400 | 163 | 15,406 | 6,900 | 2,494 | 1,374 | 190 | 108 |
-| [Food & Beverage](./food_beverage/) | 19 | 14 | 70 | 42 | 376 | 157 | 13,110 | 6,331 | 1,748 | 1,287 | 92 | 123 |
-| [Restaurants](./restaurants/) | 14 | 13 | 43 | 38 | 292 | 153 | 9,091 | 5,518 | 1,211 | 1,123 | 76 | 112 |
+| Industry | ECM Domains | ECM Products | MVM Domains | MVM Products |
+|---|---:|---:|---:|---:|
+| [Retail](./retail/) | 19 | 401 | 15 | 154 |
+| [Grocery](./grocery/) | 19 | 374 | 14 | 175 |
+| [Ecommerce](./ecommerce/) | 18 | 369 | 14 | 148 |
+| [Consumer Goods](./consumer_goods/) | 19 | 403 | 14 | 184 |
+| [Apparel & Fashion](./apparel_fashion/) | 19 | 400 | 12 | 163 |
+| [Food & Beverage](./food_beverage/) | 19 | 376 | 14 | 157 |
+| [Restaurants](./restaurants/) | 14 | 292 | 13 | 153 |
 
 ### Manufacturing & Industrial
 
-| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| [Manufacturing](./manufacturing/) | 20 | 12 | 73 | 28 | 413 | 129 | 15,623 | 5,637 | 2,290 | 1,193 | 86 | 98 |
-| [Chemical Manufacturing](./chemical_mfg/) | 19 | 14 | 67 | 43 | 405 | 202 | 14,005 | 8,135 | 1,858 | 1,867 | 87 | 135 |
-| [Semiconductors](./semiconductors/) | 19 | 14 | 65 | 42 | 385 | 211 | 13,804 | 8,532 | 2,081 | 1,946 | 101 | 136 |
-| [Automotive](./automotive/) | 19 | 14 | 75 | 44 | 548 | 209 | 17,244 | 7,271 | 2,343 | 1,445 | 101 | 128 |
-| [Construction](./construction/) | 18 | 15 | 55 | 43 | 365 | 189 | 13,220 | 7,761 | 1,817 | 1,839 | 96 | 140 |
-| [Agriculture](./agriculture/) | 18 | 14 | 60 | 37 | 408 | 177 | 15,996 | 7,683 | 3,226 | 1,995 | 97 | 134 |
+| Industry | ECM Domains | ECM Products | MVM Domains | MVM Products |
+|---|---:|---:|---:|---:|
+| [Manufacturing](./manufacturing/) | 20 | 413 | 12 | 129 |
+| [Chemical Manufacturing](./chemical_mfg/) | 19 | 405 | 14 | 202 |
+| [Semiconductors](./semiconductors/) | 19 | 385 | 14 | 211 |
+| [Automotive](./automotive/) | 19 | 548 | 14 | 209 |
+| [Construction](./construction/) | 18 | 365 | 15 | 189 |
+| [Agriculture](./agriculture/) | 18 | 408 | 14 | 177 |
 
-Header key: **D** = domains, **SD** = sub-domains, **Tables** = data products, **Attrs** = attributes/columns, **FKs** = foreign-key relationships, **MV** = metric views. **(E)** = ECM, **(M)** = MVM.
-
----
 
 ## How to use a model
 
