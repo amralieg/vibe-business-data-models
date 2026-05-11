@@ -226,13 +226,39 @@ Click an industry name to jump to its folder.
 | [Agriculture](./agriculture/) | 18 | 408 | 14 | 177 |
 
 
-## How to use a model
+## How to view a model
 
-**Quickest path — install via the model-viewer app installer:**
+The fastest way to explore one of these models visually is the **model-viewer app**, a Databricks App that renders any `model.json` as an interactive entity-relationship graph with three navigable views (full model, domain, single product).
 
-1. Pick an industry + flavour (e.g. `airlines/mvm_v1/`).
-2. Point the [vibe-modelling-agent's `model_viewer_app_installer` notebook](https://github.com/amralieg/vibe-modelling-agent/blob/main/viewer/model_viewer_app_installer.ipynb) at the `model.json` URL.
-3. The installer creates a Unity Catalog catalog + schemas + tables + metric views, loads the sample data, and deploys a Databricks App you can browse the model with.
+### Step 1 — Install the viewer app
+
+1. Download the installer notebook from the agent repo: [`viewer/model_viewer_app_installer.ipynb`](https://github.com/amralieg/vibe-modelling-agent/blob/main/viewer/model_viewer_app_installer.ipynb).
+2. Import the notebook into your Databricks workspace and run all cells. The installer provisions a Databricks App and prints the app URL when it finishes.
+
+### Step 2 — Load a model
+
+Open the app URL. You have two ways to load any model from this repo:
+
+- **Load from repo** — paste `amralieg/vibe-business-data-models` and pick the industry + flavour from the dropdown. Note: GitHub sometimes rate-limits anonymous API calls — if you hit a 429 / "rate limit exceeded" message, fall back to the second option.
+- **Load from JSON** — navigate to the industry folder in this repo (e.g. [`retail/mvm_v1/`](./retail/mvm_v1/)), download `model.json`, and click **Load from JSON** in the app to upload it directly.
+
+### What you see in the viewer
+
+**Full-model overview** — every entity in the model arranged on a single canvas, with every foreign-key relationship drawn between them. Domains are colour-coded (each rectangle is one domain) and products sit on the perimeter:
+
+![Full-model overview — Retail MVM](./images/retail_mvm.png)
+
+**Domain drill-down** — click any domain to zoom in. You see the domain's sub-domains as named groups and the products inside each, with the FK web restricted to within-domain links:
+
+![Domain drill-down — order domain in Retail MVM](./images/order_domain.png)
+
+**Single-product radial view** — click any product (table) to centre it. The viewer fans out every other product it relates to via FK, grouped by domain, so you can see at a glance every join path leaving that table:
+
+![Single-product radial view — order.order_line in Retail MVM](./images/order_line_product.png)
+
+---
+
+## How to use a model (programmatically)
 
 **Manual path — DDL-first:**
 
@@ -250,6 +276,10 @@ for d in m['domains']:
     for p in d.get('products', []):
         print(f"{d['name']}.{p['name']}: {len(p['attributes'])} columns")
 ```
+
+**Bulk install path — model-viewer installer with auto-deploy:**
+
+Point the installer notebook directly at a `model.json` URL with `auto_deploy=True` set in its widgets. It provisions the Unity Catalog catalog, all schemas + tables + FK constraints + metric views, loads the synthetic sample CSVs, and (optionally) deploys the viewer app on top — all from one notebook run.
 
 ---
 
