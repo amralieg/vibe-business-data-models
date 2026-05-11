@@ -8,22 +8,22 @@ Forty production-ready industry data models, each shipped in two flavours (ECM +
 
 ## At a glance
 
-| | Count |
-|---|---:|
-| Industries shipped | **40 / 40** |
-| Models published (ECM + MVM) | **80** |
-| Tables / data products | **23,918** (16,510 ECM + 7,408 MVM) |
-| Attributes / columns | **924,919** (616,056 ECM + 308,863 MVM) |
-| Foreign-key relationships | **167,214** (98,640 ECM + 68,574 MVM) |
-| Metric views (BI-ready) | **10,488** (5,653 ECM + 4,835 MVM) |
-| Domains | **1,280** (720 ECM + 560 MVM) |
-| Sub-domains | **4,104** (2,504 ECM + 1,600 MVM) |
-| Distinct ontology tags | **1,502** |
-| Total compute time | **348.0 hours** (14.5 days) |
-| Total LLM tokens | **1.26 billion** |
-| Total spend | **$19,906.26** ($1,217.98 compute + $18,688.29 LLM) |
-| Avg cost / industry | **$497.66** (across both ECM + MVM) |
-| Structural integrity | **0 cycles · 0 bidirectional FKs · 0 dangling FKs · 0 self-FKs** across all 80 models |
+| Metric | ECM | MVM | Combined |
+|---|---:|---:|---:|
+| Industries shipped | 40 | 40 | **40 / 40** |
+| Models published | 40 | 40 | **80** |
+| Domains | 720 | 560 | 1,280 |
+| Sub-domains | 2,504 | 1,600 | 4,104 |
+| Tables / data products | 16,510 | 7,408 | **23,918** |
+| Attributes / columns | 616,056 | 308,863 | **924,919** |
+| Foreign-key relationships | 98,640 | 68,574 | **167,214** |
+| Metric views (BI-ready) | 5,653 | 4,835 | **10,488** |
+| Distinct ontology tags | 859 | 643 | 1,502 |
+| Avg attributes / table | 37.3 | 41.7 | — |
+| Avg FKs / table | 5.97 | 9.26 | — |
+| Avg tables / domain | 22.9 | 13.2 | — |
+
+MVM ≈ 45% of ECM by table count, but retains 50% of attributes and 70% of FK relationships — confirming the MVM keeps the most join-heavy entities while shedding low-traffic reference tables.
 
 ---
 
@@ -58,173 +58,174 @@ Both flavours are byte-identical in shape — same files, same structure, same U
     └── (same structure as ecm_v1)
 ```
 
-Top-level helpers:
+Top-level helper:
 
-- **`models-info.csv`** — flat dashboard of every model (cost, runtime, tokens, counts, agent version) — easy to load into a notebook for picking the right model.
-- **`README.md`** — this file. Auto-refreshed when models change.
-
----
-
-## Headline highlights
-
-**Top-5 biggest ECMs** (by attribute count):
-
-| Industry | Domains | Tables | Attributes | FKs | Metric views |
-|---|---:|---:|---:|---:|---:|
-| [Healthcare](./healthcare/ecm_v1/) | 22 | 541 | 22,423 | 4,093 | 104 |
-| [Oil & Gas](./oil_gas/ecm_v1/) | 19 | 568 | 22,088 | 3,533 | 107 |
-| [Sports & Entertainment](./sports_entertainment/ecm_v1/) | 19 | 473 | 21,075 | 4,474 | 180 |
-| [Transport & Shipping](./transport_shipping/ecm_v1/) | 19 | 514 | 20,747 | 3,292 | 195 |
-| [Banking](./banking/ecm_v1/) | 19 | 501 | 19,792 | 3,301 | 90 |
-
-**Top-5 biggest MVMs** (production-ready, leaner than ECM):
-
-| Industry | Domains | Tables | Attributes | FKs | Metric views |
-|---|---:|---:|---:|---:|---:|
-| [Oil & Gas](./oil_gas/mvm_v1/) | 17 | 246 | 11,143 | 2,664 | 93 |
-| [Energy & Utilities](./energy_utilities/mvm_v1/) | 15 | 236 | 10,384 | 2,107 | 84 |
-| [Banking](./banking/mvm_v1/) | 17 | 227 | 9,883 | 2,478 | 80 |
-| [Life Insurance](./life_insurance/mvm_v1/) | 15 | 217 | 9,579 | 1,926 | 158 |
-| [Transport & Shipping](./transport_shipping/mvm_v1/) | 14 | 210 | 9,524 | 1,918 | 122 |
-
-**Most expensive industries to generate** (full ECM + MVM, end-to-end):
-
-| Industry | Total $ | Hours | Tokens (M) |
-|---|---:|---:|---:|
-| [Oil & Gas](./oil_gas/) | $853.58 | 11.50 | 69.4 |
-| [Healthcare](./healthcare/) | $803.83 | 11.96 | 45.6 |
-| [Sports & Entertainment](./sports_entertainment/) | $792.60 | 8.24 | 46.5 |
-| [Gaming](./gaming/) | $784.15 | 14.00 | 43.0 |
-| [Real Estate](./real_estate/) | $774.79 | 14.00 | 40.4 |
-
-**Cheapest / fastest industries**:
-
-| Industry | Total $ | Hours | Tokens (M) |
-|---|---:|---:|---:|
-| [Restaurants](./restaurants/) | $247.55 | 3.94 | 17.6 |
-| [Advertising](./advertising/) | $283.79 | 14.00 | 15.7 |
-| [Ecommerce](./ecommerce/) | $285.38 | 4.08 | 19.9 |
-| [Grocery](./grocery/) | $291.80 | 5.10 | 20.5 |
-| [Food & Beverage](./food_beverage/) | $311.58 | 4.71 | 21.3 |
-
----
-
-## Cross-cloud orchestration
-
-These 40 models were generated in parallel across **three Databricks clouds** to maximize throughput:
-
-| Cloud | Industries | Total $ | Hours | Tokens (M) |
-|---|---:|---:|---:|---:|
-| GCP | 15 | $8,452.30 | 156.2 | 517.6 |
-| Azure | 9 | $4,715.97 | 86.2 | 312.2 |
-| AWS | 16 | $6,737.99 | 105.6 | 425.9 |
-| **TOTAL** | **40** | **$19,906.26** | **348.0** | **1255.7** |
-
-Wall-clock from kickoff to last industry shipped: roughly one calendar week running in cross-cloud parallel.
+- **`models-info.csv`** — flat machine-readable manifest of every model with all the per-industry metrics so you can pick or compare programmatically.
 
 ---
 
 ## Quality gates — every model passes
 
-Every shipped model was validated against the agent's `§9 model-level integrity contract`:
+Every shipped model was validated against the agent's `§9 model-level integrity contract`. Findings are split out per flavour so you can see the MVMs are entirely structurally clean.
 
-| Check | Result |
-|---|---|
-| FK cycles (graph SCC) | **0 / 80 models** have any cycle |
-| Bidirectional FK pairs | **0 / 80 models** |
-| Dangling FKs (target product missing) | **0 / 80 models** |
-| Self-FKs on primary keys | **0 / 80 models** |
-| Siloed tables (no FK in or out) | 4 ECMs (1 each) — niche reference entities |
-| Cross-domain duplicate product names | 27 ECMs (1-6 each) — mostly legitimate shared lookups (`party`, `legal_entity`, `terminal`, `field`) |
-| Fidelity gates (Memory/JSON precision ≥ 0.85) | **PASSED on every model** |
-| Manifest present (`_manifest.json`) | **80 / 80** |
-| Per-version readme present | **80 / 80** |
+| Check | ECM (40 models) | MVM (40 models) |
+|---|---:|---:|
+| FK cycles (graph SCC) | 0 | 0 |
+| Bidirectional FK pairs | 0 | 0 |
+| Dangling FKs (target product missing) | 0 | 0 |
+| Self-FKs on primary keys | 0 | 0 |
+| Siloed tables (no FK in or out) | 4 (1 each in 4 ECMs) | 0 |
+| Cross-domain duplicate product names | 27 (1-6 each, mostly shared lookups) | 0 |
+| Fidelity gates (Memory/JSON precision ≥ 0.85) | PASSED | PASSED |
+| Manifest present (`_manifest.json`) | 40 / 40 | 40 / 40 |
+| Per-version readme present | 40 / 40 | 40 / 40 |
 
-All 40 MVMs (the production-recommended flavour) ship with **zero structural findings** — they're clean across every check above.
+All 40 MVMs ship with **zero structural findings** — they're clean across every check above. The 4 ECM silos and 27 ECM cross-domain name overlaps are the only outstanding items, all minor and called out individually in the *Known limitations* section.
+
+---
+
+## Headline highlights
+
+**Top-5 biggest ECMs by attribute count:**
+
+| Industry | Domains | Sub-domains | Tables | Attributes | FKs | Metric views |
+|---|---:|---:|---:|---:|---:|---:|
+| [Healthcare](./healthcare/ecm_v1/) | 22 | 78 | 541 | 22,423 | 4,093 | 104 |
+| [Oil & Gas](./oil_gas/ecm_v1/) | 19 | 72 | 568 | 22,088 | 3,533 | 107 |
+| [Sports & Entertainment](./sports_entertainment/ecm_v1/) | 19 | 75 | 473 | 21,075 | 4,474 | 180 |
+| [Transport & Shipping](./transport_shipping/ecm_v1/) | 19 | 82 | 514 | 20,747 | 3,292 | 195 |
+| [Banking](./banking/ecm_v1/) | 19 | 70 | 501 | 19,792 | 3,301 | 90 |
+
+**Top-5 biggest MVMs by attribute count:**
+
+| Industry | Domains | Sub-domains | Tables | Attributes | FKs | Metric views |
+|---|---:|---:|---:|---:|---:|---:|
+| [Oil & Gas](./oil_gas/mvm_v1/) | 17 | 45 | 246 | 11,143 | 2,664 | 93 |
+| [Energy & Utilities](./energy_utilities/mvm_v1/) | 15 | 45 | 236 | 10,384 | 2,107 | 84 |
+| [Banking](./banking/mvm_v1/) | 17 | 47 | 227 | 9,883 | 2,478 | 80 |
+| [Life Insurance](./life_insurance/mvm_v1/) | 15 | 45 | 217 | 9,579 | 1,926 | 158 |
+| [Transport & Shipping](./transport_shipping/mvm_v1/) | 14 | 45 | 210 | 9,524 | 1,918 | 122 |
+
+**Most relationship-rich (densest FK graph):**
+
+| Industry | Flavour | FKs | Tables | FKs / table |
+|---|---|---:|---:|---:|
+| [Sports & Entertainment](./sports_entertainment/ecm_v1/) | ECM | 4,474 | 473 | 9.46 |
+| [Healthcare](./healthcare/ecm_v1/) | ECM | 4,093 | 541 | 7.57 |
+| [Oil & Gas](./oil_gas/ecm_v1/) | ECM | 3,533 | 568 | 6.22 |
+| [Oil & Gas](./oil_gas/mvm_v1/) | MVM | 2,664 | 246 | 10.83 |
+| [Banking](./banking/mvm_v1/) | MVM | 2,478 | 227 | 10.92 |
+| [Pharmaceuticals](./pharmaceuticals/mvm_v1/) | MVM | 2,423 | 213 | 11.38 |
+
+**Most BI-ready (most metric views):**
+
+| Industry | Flavour | Metric views | Tables |
+|---|---|---:|---:|
+| [Education](./education/ecm_v1/) | ECM | 237 | 446 |
+| [Airlines](./airlines/ecm_v1/) | ECM | 231 | 424 |
+| [Health Insurance](./health_insurance/ecm_v1/) | ECM | 222 | 409 |
+| [Life Insurance](./life_insurance/mvm_v1/) | MVM | 158 | 217 |
+| [Pharmaceuticals](./pharmaceuticals/mvm_v1/) | MVM | 147 | 213 |
+| [Education](./education/mvm_v1/) | MVM | 143 | 203 |
+
+**Deepest sub-domain hierarchy:**
+
+| Industry | Flavour | Domains | Sub-domains | Sub-domains / domain |
+|---|---|---:|---:|---:|
+| [Transport & Shipping](./transport_shipping/ecm_v1/) | ECM | 19 | 82 | 4.3 |
+| [Healthcare](./healthcare/ecm_v1/) | ECM | 22 | 78 | 3.5 |
+| [Automotive](./automotive/ecm_v1/) | ECM | 19 | 75 | 3.9 |
+| [Banking](./banking/mvm_v1/) | MVM | 17 | 47 | 2.8 |
+| [Pharmaceuticals](./pharmaceuticals/mvm_v1/) | MVM | 15 | 47 | 3.1 |
+| [Mining](./mining/mvm_v1/) | MVM | 15 | 46 | 3.1 |
 
 ---
 
 ## Industry index — full catalog
 
+Each industry's row is split into per-flavour columns so the ECM-vs-MVM trade-off is visible at a glance. Click an industry name to jump to its folder.
+
 ### Financial Services & Insurance
 
-| Industry | Cloud | ECM (D / P / A / FK / MV) | MVM (D / P / A / FK / MV) | Cost | Hours |
-|---|---|---|---|---:|---:|
-| [Banking](./banking/) | GCP | 19d / 501p / 19,792a / 3,301fk / 90mv | 17d / 227p / 9,883a / 2,478fk / 80mv | $692.49 | 14.0 |
-| [Payments & Fintech](./payments_fintech/) | GCP | 18d / 546p / 16,916a / 2,188fk / 95mv | 15d / 223p / 7,890a / 1,624fk / 71mv | $450.90 | 8.4 |
-| [Health Insurance](./health_insurance/) | GCP | 19d / 409p / 13,134a / 1,507fk / 222mv | 15d / 189p / 6,803a / 1,371fk / 128mv | $394.75 | 8.7 |
-| [Life Insurance](./life_insurance/) | GCP | 19d / 468p / 18,387a / 2,825fk / 181mv | 15d / 217p / 9,579a / 1,926fk / 158mv | $609.60 | 9.7 |
+| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| [Banking](./banking/) | 19 | 17 | 70 | 47 | 501 | 227 | 19,792 | 9,883 | 3,301 | 2,478 | 90 | 80 |
+| [Payments & Fintech](./payments_fintech/) | 18 | 15 | 68 | 41 | 546 | 223 | 16,916 | 7,890 | 2,188 | 1,624 | 95 | 71 |
+| [Health Insurance](./health_insurance/) | 19 | 15 | 73 | 45 | 409 | 189 | 13,134 | 6,803 | 1,507 | 1,371 | 222 | 128 |
+| [Life Insurance](./life_insurance/) | 19 | 15 | 64 | 45 | 468 | 217 | 18,387 | 9,579 | 2,825 | 1,926 | 181 | 158 |
 
 ### Healthcare & Life Sciences
 
-| Industry | Cloud | ECM (D / P / A / FK / MV) | MVM (D / P / A / FK / MV) | Cost | Hours |
-|---|---|---|---|---:|---:|
-| [Healthcare](./healthcare/) | GCP | 22d / 541p / 22,423a / 4,093fk / 104mv | 16d / 189p / 8,502a / 1,940fk / 140mv | $803.83 | 12.0 |
-| [Pharmaceuticals](./pharmaceuticals/) | GCP | 19d / 441p / 16,563a / 2,987fk / 190mv | 15d / 213p / 8,874a / 2,423fk / 147mv | $734.65 | 14.0 |
-| [Genomics & Biotech](./genomics_biotech/) | GCP | 19d / 403p / 15,490a / 2,714fk / 114mv | 15d / 182p / 7,884a / 1,906fk / 124mv | $509.01 | 8.1 |
-| [Clinical Trials](./clinical_trials/) | GCP | 19d / 379p / 15,530a / 3,128fk / 169mv | 13d / 193p / 8,719a / 1,991fk / 126mv | $722.90 | 10.8 |
+| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| [Healthcare](./healthcare/) | 22 | 16 | 78 | 44 | 541 | 189 | 22,423 | 8,502 | 4,093 | 1,940 | 104 | 140 |
+| [Pharmaceuticals](./pharmaceuticals/) | 19 | 15 | 74 | 47 | 441 | 213 | 16,563 | 8,874 | 2,987 | 2,423 | 190 | 147 |
+| [Genomics & Biotech](./genomics_biotech/) | 19 | 15 | 66 | 40 | 403 | 182 | 15,490 | 7,884 | 2,714 | 1,906 | 114 | 124 |
+| [Clinical Trials](./clinical_trials/) | 19 | 13 | 67 | 37 | 379 | 193 | 15,530 | 8,719 | 3,128 | 1,991 | 169 | 126 |
 
 ### Travel & Logistics
 
-| Industry | Cloud | ECM (D / P / A / FK / MV) | MVM (D / P / A / FK / MV) | Cost | Hours |
-|---|---|---|---|---:|---:|
-| [Airlines](./airlines/) | GCP | 19d / 424p / 14,742a / 2,101fk / 231mv | 15d / 205p / 7,613a / 1,380fk / 140mv | $363.30 | 14.0 |
-| [Travel & Hospitality](./travel_hospitality/) | GCP | 17d / 356p / 13,377a / 2,107fk / 203mv | 14d / 188p / 7,755a / 1,571fk / 120mv | $329.05 | 6.2 |
-| [Transport & Shipping](./transport_shipping/) | GCP | 19d / 514p / 20,747a / 3,292fk / 195mv | 14d / 210p / 9,524a / 1,918fk / 122mv | $595.38 | 10.2 |
-| [Shipping Ports](./shipping_ports/) | GCP | 19d / 395p / 16,237a / 2,704fk / 211mv | 14d / 186p / 8,590a / 2,086fk / 139mv | $543.78 | 8.3 |
+| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| [Airlines](./airlines/) | 19 | 15 | 66 | 44 | 424 | 205 | 14,742 | 7,613 | 2,101 | 1,380 | 231 | 140 |
+| [Travel & Hospitality](./travel_hospitality/) | 17 | 14 | 54 | 45 | 356 | 188 | 13,377 | 7,755 | 2,107 | 1,571 | 203 | 120 |
+| [Transport & Shipping](./transport_shipping/) | 19 | 14 | 82 | 45 | 514 | 210 | 20,747 | 9,524 | 3,292 | 1,918 | 195 | 122 |
+| [Shipping Ports](./shipping_ports/) | 19 | 14 | 71 | 42 | 395 | 186 | 16,237 | 8,590 | 2,704 | 2,086 | 211 | 139 |
 
 ### Energy & Resources
 
-| Industry | Cloud | ECM (D / P / A / FK / MV) | MVM (D / P / A / FK / MV) | Cost | Hours |
-|---|---|---|---|---:|---:|
-| [Oil & Gas](./oil_gas/) | Azure | 19d / 568p / 22,088a / 3,533fk / 107mv | 17d / 246p / 11,143a / 2,664fk / 93mv | $853.58 | 11.5 |
-| [Energy & Utilities](./energy_utilities/) | Azure | 18d / 451p / 17,774a / 2,767fk / 99mv | 15d / 236p / 10,384a / 2,107fk / 84mv | $616.95 | 9.6 |
-| [Mining](./mining/) | Azure | 18d / 416p / 15,002a / 2,458fk / 179mv | 15d / 219p / 8,813a / 2,083fk / 141mv | $562.41 | 8.5 |
-| [Water Utilities](./water_utilities/) | Azure | 15d / 377p / 12,758a / 2,170fk / 86mv | 13d / 189p / 7,107a / 1,539fk / 112mv | $400.30 | 7.6 |
+| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| [Oil & Gas](./oil_gas/) | 19 | 17 | 72 | 45 | 568 | 246 | 22,088 | 11,143 | 3,533 | 2,664 | 107 | 93 |
+| [Energy & Utilities](./energy_utilities/) | 18 | 15 | 60 | 45 | 451 | 236 | 17,774 | 10,384 | 2,767 | 2,107 | 99 | 84 |
+| [Mining](./mining/) | 18 | 15 | 62 | 46 | 416 | 219 | 15,002 | 8,813 | 2,458 | 2,083 | 179 | 141 |
+| [Water Utilities](./water_utilities/) | 15 | 13 | 52 | 38 | 377 | 189 | 12,758 | 7,107 | 2,170 | 1,539 | 86 | 112 |
 
 ### Public Sector & Services
 
-| Industry | Cloud | ECM (D / P / A / FK / MV) | MVM (D / P / A / FK / MV) | Cost | Hours |
-|---|---|---|---|---:|---:|
-| [Education](./education/) | Azure | 17d / 446p / 17,010a / 2,337fk / 237mv | 14d / 203p / 8,251a / 1,507fk / 143mv | $459.57 | 14.0 |
-| [NGO](./ngo/) | Azure | 15d / 302p / 11,608a / 1,821fk / 135mv | 12d / 141p / 6,093a / 1,413fk / 114mv | $345.83 | 6.1 |
-| [Legal](./legal/) | Azure | 15d / 314p / 12,216a / 2,214fk / 162mv | 12d / 153p / 6,405a / 1,377fk / 122mv | $412.91 | 6.7 |
-| [Waste Management](./waste_management/) | Azure | 17d / 471p / 17,718a / 2,772fk / 187mv | 12d / 194p / 7,918a / 1,606fk / 114mv | $418.61 | 8.2 |
-| [Staffing & HR](./staffing_hr/) | GCP | 16d / 302p / 11,925a / 2,097fk / 138mv | 12d / 153p / 6,932a / 1,568fk / 116mv | $349.64 | 8.0 |
-| [Real Estate](./real_estate/) | GCP | 16d / 344p / 14,564a / 2,970fk / 143mv | 14d / 177p / 8,681a / 2,410fk / 129mv | $774.79 | 14.0 |
+| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| [Education](./education/) | 17 | 14 | 57 | 39 | 446 | 203 | 17,010 | 8,251 | 2,337 | 1,507 | 237 | 143 |
+| [NGO](./ngo/) | 15 | 12 | 47 | 31 | 302 | 141 | 11,608 | 6,093 | 1,821 | 1,413 | 135 | 114 |
+| [Legal](./legal/) | 15 | 12 | 45 | 31 | 314 | 153 | 12,216 | 6,405 | 2,214 | 1,377 | 162 | 122 |
+| [Waste Management](./waste_management/) | 17 | 12 | 55 | 38 | 471 | 194 | 17,718 | 7,918 | 2,772 | 1,606 | 187 | 114 |
+| [Staffing & HR](./staffing_hr/) | 16 | 12 | 48 | 31 | 302 | 153 | 11,925 | 6,932 | 2,097 | 1,568 | 138 | 116 |
+| [Real Estate](./real_estate/) | 16 | 14 | 50 | 41 | 344 | 177 | 14,564 | 8,681 | 2,970 | 2,410 | 143 | 129 |
 
 ### Communications, Media & Entertainment
 
-| Industry | Cloud | ECM (D / P / A / FK / MV) | MVM (D / P / A / FK / MV) | Cost | Hours |
-|---|---|---|---|---:|---:|
-| [Telecommunication](./telecommunication/) | Azure | 20d / 451p / 17,655a / 2,935fk / 104mv | 15d / 167p / 7,601a / 1,806fk / 132mv | $645.81 | 14.0 |
-| [Media & Broadcasting](./media_broadcasting/) | AWS | 17d / 421p / 14,926a / 2,444fk / 92mv | 14d / 186p / 7,529a / 1,842fk / 121mv | $408.58 | 5.6 |
-| [Sports & Entertainment](./sports_entertainment/) | AWS | 19d / 473p / 21,075a / 4,474fk / 180mv | 14d / 200p / 9,102a / 2,034fk / 130mv | $792.60 | 8.2 |
-| [Gaming](./gaming/) | AWS | 17d / 396p / 15,481a / 2,716fk / 218mv | 14d / 176p / 7,543a / 1,824fk / 120mv | $784.15 | 14.0 |
-| [Advertising](./advertising/) | AWS | 13d / 262p / 9,284a / 1,544fk / 145mv | 10d / 95p / 3,760a / 815fk / 77mv | $283.79 | 14.0 |
+| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| [Telecommunication](./telecommunication/) | 20 | 15 | 73 | 43 | 451 | 167 | 17,655 | 7,601 | 2,935 | 1,806 | 104 | 132 |
+| [Media & Broadcasting](./media_broadcasting/) | 17 | 14 | 47 | 40 | 421 | 186 | 14,926 | 7,529 | 2,444 | 1,842 | 92 | 121 |
+| [Sports & Entertainment](./sports_entertainment/) | 19 | 14 | 75 | 43 | 473 | 200 | 21,075 | 9,102 | 4,474 | 2,034 | 180 | 130 |
+| [Gaming](./gaming/) | 17 | 14 | 58 | 42 | 396 | 176 | 15,481 | 7,543 | 2,716 | 1,824 | 218 | 120 |
+| [Advertising](./advertising/) | 13 | 10 | 41 | 21 | 262 | 95 | 9,284 | 3,760 | 1,544 | 815 | 145 | 77 |
 
 ### Retail & Consumer
 
-| Industry | Cloud | ECM (D / P / A / FK / MV) | MVM (D / P / A / FK / MV) | Cost | Hours |
-|---|---|---|---|---:|---:|
-| [Retail](./retail/) | AWS | 19d / 401p / 14,787a / 2,491fk / 220mv | 15d / 154p / 6,377a / 1,497fk / 120mv | $427.50 | 7.0 |
-| [Grocery](./grocery/) | AWS | 19d / 374p / 12,754a / 1,611fk / 101mv | 14d / 175p / 6,708a / 1,288fk / 121mv | $291.80 | 5.1 |
-| [Ecommerce](./ecommerce/) | AWS | 18d / 369p / 11,678a / 1,428fk / 89mv | 14d / 148p / 5,435a / 1,050fk / 112mv | $285.38 | 4.1 |
-| [Consumer Goods](./consumer_goods/) | AWS | 19d / 403p / 14,916a / 1,843fk / 100mv | 14d / 184p / 7,697a / 1,461fk / 125mv | $353.04 | 5.3 |
-| [Apparel & Fashion](./apparel_fashion/) | AWS | 19d / 400p / 15,406a / 2,494fk / 190mv | 12d / 163p / 6,900a / 1,374fk / 108mv | $373.89 | 6.8 |
-| [Food & Beverage](./food_beverage/) | AWS | 19d / 376p / 13,110a / 1,748fk / 92mv | 14d / 157p / 6,331a / 1,287fk / 123mv | $311.58 | 4.7 |
-| [Restaurants](./restaurants/) | AWS | 14d / 292p / 9,091a / 1,211fk / 76mv | 13d / 153p / 5,518a / 1,123fk / 112mv | $247.55 | 3.9 |
+| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| [Retail](./retail/) | 19 | 15 | 74 | 37 | 401 | 154 | 14,787 | 6,377 | 2,491 | 1,497 | 220 | 120 |
+| [Grocery](./grocery/) | 19 | 14 | 62 | 39 | 374 | 175 | 12,754 | 6,708 | 1,611 | 1,288 | 101 | 121 |
+| [Ecommerce](./ecommerce/) | 18 | 14 | 55 | 37 | 369 | 148 | 11,678 | 5,435 | 1,428 | 1,050 | 89 | 112 |
+| [Consumer Goods](./consumer_goods/) | 19 | 14 | 66 | 41 | 403 | 184 | 14,916 | 7,697 | 1,843 | 1,461 | 100 | 125 |
+| [Apparel & Fashion](./apparel_fashion/) | 19 | 12 | 64 | 33 | 400 | 163 | 15,406 | 6,900 | 2,494 | 1,374 | 190 | 108 |
+| [Food & Beverage](./food_beverage/) | 19 | 14 | 70 | 42 | 376 | 157 | 13,110 | 6,331 | 1,748 | 1,287 | 92 | 123 |
+| [Restaurants](./restaurants/) | 14 | 13 | 43 | 38 | 292 | 153 | 9,091 | 5,518 | 1,211 | 1,123 | 76 | 112 |
 
 ### Manufacturing & Industrial
 
-| Industry | Cloud | ECM (D / P / A / FK / MV) | MVM (D / P / A / FK / MV) | Cost | Hours |
-|---|---|---|---|---:|---:|
-| [Manufacturing](./manufacturing/) | AWS | 20d / 413p / 15,623a / 2,290fk / 86mv | 12d / 129p / 5,637a / 1,193fk / 98mv | $382.84 | 5.3 |
-| [Chemical Manufacturing](./chemical_mfg/) | AWS | 19d / 405p / 14,005a / 1,858fk / 87mv | 14d / 202p / 8,135a / 1,867fk / 135mv | $377.68 | 5.0 |
-| [Semiconductors](./semiconductors/) | AWS | 19d / 385p / 13,804a / 2,081fk / 101mv | 14d / 211p / 8,532a / 1,946fk / 136mv | $457.58 | 5.4 |
-| [Automotive](./automotive/) | AWS | 19d / 548p / 17,244a / 2,343fk / 101mv | 14d / 209p / 7,271a / 1,445fk / 128mv | $424.61 | 5.3 |
-| [Construction](./construction/) | AWS | 18d / 365p / 13,220a / 1,817fk / 96mv | 15d / 189p / 7,761a / 1,839fk / 140mv | $535.42 | 5.7 |
-| [Agriculture](./agriculture/) | GCP | 18d / 408p / 15,996a / 3,226fk / 97mv | 14d / 177p / 7,683a / 1,995fk / 134mv | $578.23 | 10.0 |
+| Industry | D (E) | D (M) | SD (E) | SD (M) | Tables (E) | Tables (M) | Attrs (E) | Attrs (M) | FKs (E) | FKs (M) | MV (E) | MV (M) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| [Manufacturing](./manufacturing/) | 20 | 12 | 73 | 28 | 413 | 129 | 15,623 | 5,637 | 2,290 | 1,193 | 86 | 98 |
+| [Chemical Manufacturing](./chemical_mfg/) | 19 | 14 | 67 | 43 | 405 | 202 | 14,005 | 8,135 | 1,858 | 1,867 | 87 | 135 |
+| [Semiconductors](./semiconductors/) | 19 | 14 | 65 | 42 | 385 | 211 | 13,804 | 8,532 | 2,081 | 1,946 | 101 | 136 |
+| [Automotive](./automotive/) | 19 | 14 | 75 | 44 | 548 | 209 | 17,244 | 7,271 | 2,343 | 1,445 | 101 | 128 |
+| [Construction](./construction/) | 18 | 15 | 55 | 43 | 365 | 189 | 13,220 | 7,761 | 1,817 | 1,839 | 96 | 140 |
+| [Agriculture](./agriculture/) | 18 | 14 | 60 | 37 | 408 | 177 | 15,996 | 7,683 | 3,226 | 1,995 | 97 | 134 |
+
+Header key: **D** = domains, **SD** = sub-domains, **Tables** = data products, **Attrs** = attributes/columns, **FKs** = foreign-key relationships, **MV** = metric views. **(E)** = ECM, **(M)** = MVM.
 
 ---
 
@@ -260,29 +261,28 @@ for d in m['domains']:
 1. **Vibe-modelling-agent** receives a one-paragraph business description (e.g. *"Agriculture — primary production, supply chain, finance, sustainability ..."*).
 2. It runs an 8-stage pipeline using a per-stage **LLM ensemble + judge**:
    1. Tier classification → 2. Domain generation → 3. Sub-domain expansion → 4. Product (table) generation → 5. Attribute (column) generation → 6. FK linking → 7. Semantic dedup + naming → 8. Metric view + ontology synthesis.
-3. Each stage runs on a **Databricks Foundation Model serving endpoint** (Claude Opus / Sonnet / GPT-OSS) and is gated by structural validators (cycle detector, bidirectional-FK detector, dangling-FK detector, fidelity-precision gate).
-4. Output is written to a Unity Catalog volume + workspace folder.
-5. An orchestrator daemon (`runner/sync_watchdog.py` + `runner/orchestrate_sectors.py`) detects each completed industry, validates the manifest, and pushes it into this repo as its own commit.
+3. Each stage is gated by structural validators (cycle detector, bidirectional-FK detector, dangling-FK detector, fidelity-precision gate) before the next stage starts.
+4. Output is written to a Unity Catalog volume + workspace folder, then auto-pushed into this repo as one commit per industry.
 
 See the [vibe-modelling-agent README](https://github.com/amralieg/vibe-modelling-agent) for the full pipeline architecture, prompt library, autofix passes, and validator catalogue.
 
 ---
 
-## Provenance & reproducibility
+## Provenance
 
 - **Agent versions used:** v0.7.1 (31 industries) and v0.7.2 (9 industries) — single-digit semver per `CLAUDE.md §3a`.
-- **Every `model.json`** carries a top-level `agent_version` field so you can correlate output shape to the producing agent revision.
-- **Every commit** is one industry — search `git log --oneline | grep <industry>` to find it. Diffs across versions of the same industry are clean to review.
-- **`models-info.csv`** at the repo root is a reproducible flat snapshot of the dashboard (cost, runtime, tokens, counts) for every model.
+- **Every `model.json`** carries a top-level `agent_version` field so you can correlate model shape to the producing agent revision.
+- **Every commit** is one industry — search `git log --oneline | grep <industry>` to find it. Diffs across versions of the same industry stay reviewable.
+- **`models-info.csv`** at the repo root is the flat machine-readable manifest of all per-model metrics.
 
 ---
 
 ## Known limitations
 
-- **Sample data is synthetic.** The agent generates plausible-looking values, but never use it as ground truth for analytics; replace with real ingestion before going to production.
-- **27 ECMs have cross-domain duplicate product names** (e.g. `party` shared across 4 domains in `payments_fintech/ecm_v1`). These are usually legitimate shared lookups but a future agent version may consolidate them under a single owning domain.
-- **4 ECMs have one siloed product each** (`finance.ledger` in `education`, `facility.organization` in `healthcare`, `program.program` in `ngo`, `marine.pilotage_exemption` in `shipping_ports`). The MVMs are silo-free.
-- **Industry coverage is broad, not deep.** The ECMs aim for 70-80% of an enterprise's domain shape; the last 20-30% (organisation-specific extensions, third-party integrations) is a follow-up vibe-iteration.
+- **Sample data is synthetic.** The agent generates plausible-looking values, but never use them as ground truth for analytics; replace with real ingestion before going to production.
+- **27 ECMs have cross-domain duplicate product names** (e.g. `party` shared across 4 domains in `payments_fintech/ecm_v1`). These are usually legitimate shared lookups but a future agent version may consolidate them under a single owning domain. **All 40 MVMs are clean of this.**
+- **4 ECMs have one siloed product each** (`finance.ledger` in `education`, `facility.organization` in `healthcare`, `program.program` in `ngo`, `marine.pilotage_exemption` in `shipping_ports`). These are legitimate top-level reference entities that the agent didn't link out from. **All 40 MVMs are silo-free.**
+- **Industry coverage is broad, not deep.** The ECMs aim for 70-80% of an enterprise's domain shape; the last 20-30% (organisation-specific extensions, third-party integrations) is a follow-up vibe-iteration the agent can take on.
 
 ---
 
@@ -292,4 +292,4 @@ These models are auto-generated and provided as-is for reference. Industry stand
 
 ---
 
-*Last refresh: 40 industries · $19,906.26 total spend · structural integrity 80/80 clean.*
+*40 industries · 80 models · 23,918 tables · 924,919 attributes · structural integrity 80/80 clean.*
